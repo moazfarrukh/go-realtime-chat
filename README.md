@@ -12,7 +12,7 @@ go run *.go
 ```
 ## TODOS
 1. Add user authentication
-2. database integration
+2. Database integration
 3. Improve frontend and UI
 4. Add ping
 
