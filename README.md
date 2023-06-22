@@ -15,5 +15,7 @@ go run *.go
 2. Database integration
 3. Improve frontend and UI
 4. Add ping
+5. Unit Tests
+6. improve documentation
 
 
