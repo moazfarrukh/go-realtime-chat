@@ -11,6 +11,12 @@
 <body>
     <div class="center">
         <h1>Realtime Chat Application</h1>
+        <form id="username-selection">
+            <label for="chatroom">username</label>
+            <input type="text" id="username" placeholder="enter username" name="chatroom"><br><br>
+            <input type="submit" value="save username">
+        </form>
+        
         <h3 id="chat-header">Currently in chat: general</h3>
 
         <form id="chatroom-selection">
@@ -18,6 +24,7 @@
             <input type="text" id="chatroom" name="chatroom"><br><br>
             <input type="submit" value="Change chatroom">
         </form>
+
 
         <br>
 
@@ -56,7 +63,7 @@
         }
 
          var selectedchat = "general";
-
+        var username="anonymous"
         class Event {
             constructor(type, payload) {
                 this.type = type;
@@ -71,7 +78,10 @@
             }
             switch (event.type) {
                 case "new_message":
-                    console.log("new message");
+                    let chat =document.getElementById("chatmessages")
+                
+                    chat.value+=("\n"+event.payload.username+": "+event.payload.message)
+                    chat.scrollTop = textarea.scrollHeight;
                     break;
                 default:
                     alert("unsupported message type");
@@ -94,14 +104,16 @@
             }
             return false;
         }
-        /**
-         * sendMessage will send a new message onto the Chat
-         * */
+   
+        function changeUsername() {
+        username= document.getElementById("username").value
+        return false
+    }
 
         function sendMessage() {
             var newmessage = document.getElementById("message");
             if (newmessage != null) {
-                sendEvent("send_message", new SendMessageEvent(newmessage.value,"client"))
+                sendEvent("send_message", new SendMessageEvent(newmessage.value,username))
             }
             return false;
         }
@@ -113,6 +125,8 @@
         }
         window.onload = function () {
             document.getElementById("chatroom-selection").onsubmit = changeChatRoom;
+            document.getElementById("username-selection").onsubmit = changeUsername;
+
             document.getElementById("chatroom-message").onsubmit = sendMessage;
 
             if (window["WebSocket"]) {
