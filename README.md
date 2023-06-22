@@ -10,7 +10,7 @@ execute the go files
 ```
 go run *.go
 ```
-##TODOS
+## TODOS
 1. Add user authentication
 2. database integration
 3. Improve frontend and UI
